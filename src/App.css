@@ -1,0 +1,668 @@
+/* ===== Global Styles ===== */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto+Mono:wght@400;500&family=Montserrat:wght@600;700&display=swap'); */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background-color: #0a0a0f;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ===== Titles ===== */
+.title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 47px;
+  color: #00d4ff;
+  text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+
+  
+}
+
+/* ===== Main Grid ===== */
+.main-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+/* ===== Glass Card with Blue Border ===== */
+.glass-card {
+  flex: 1;
+  min-width: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  padding: 38px;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.15s, box-shadow 0.15s, border 0.15s;
+}
+
+.glass-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+  border-color: rgba(0, 212, 255, 0.6);
+}
+
+/* ===== Wallet & Buttons ===== */
+.wallet-connect-container {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.wallet-info p {
+  margin: 9px 0;
+  color: #0aaa0d;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ===== Inputs ===== */
+
+
+
+/* Extra Code */
+.input {
+  width: 96%;
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-top: 25px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  outline: none;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 16px;
+  transition: border 0.3s, box-shadow 0.3s, transform 0.2s ease-in-out;
+}
+
+/* Focus effect */
+.input:focus {
+  border: 1px solid rgba(0, 212, 255, 0.8);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+  transform: scale(1.02);
+}
+
+/* Animated typing numbers */
+.input:focus::placeholder {
+  opacity: 0.5;
+  animation: pulseText 1s infinite alternate;
+}
+
+@keyframes pulseText {
+  from {
+    letter-spacing: 1px;
+    color: rgba(0, 212, 255, 0.6);
+  }
+  to {
+    letter-spacing: 2px;
+    color: rgba(0, 212, 255, 1);
+  }
+}
+
+/* Extra code */
+
+.input:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+/* Gap between input and initialize button */
+.initialize-wrapper {
+  margin-bottom: 20px;
+  
+}
+
+/* ===== Buttons ===== */
+.connect-btn {
+  /* background: linear-gradient(135deg, #289e43, #0ca917, #22930f); */
+  background-color:  #0aaa0d;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 12px rgba(25, 185, 70, 0.4);
+  
+}
+
+.connect-btn:hover {
+  background: linear-gradient(135deg, #21a724, #229d24, #28ad2a, #28aa2a);
+  box-shadow: 0 0 18px rgba(46, 201, 49, 0.7);
+  transform: scale(1.05);
+  border-color: #229d24 ;
+}
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: white;
+  min-width: 120px;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.dark-btn {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.gradient-btn {
+  background: linear-gradient(135deg, #7daee6 0%, #1760d5 50%, #19214e 100%);
+  border: 1px solid rgba(0, 212, 255, 0.5);
+  color: #ffffff; /* text fully white */
+  font-weight: 600;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-width: 120px;
+  text-align: center;
+  box-shadow: 0 3px 15px rgba(0, 212, 255, 0.3);
+}
+
+.gradient-btn:hover {
+  background: linear-gradient(135deg, #a0c4ff 0%, #3a88e1 50%, #19214e 100%);
+  box-shadow: 0 5px 20px rgba(0, 212, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+
+
+.btn:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.5);
+  border-color: #00d4ff;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+/* ===== Button Rows ===== */
+.stake-actions .button-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.button-row-top {
+  margin-bottom: 10px;
+}
+
+/* Make all buttons same size */
+.stake-actions .button-row button {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===== Account Data Section with Web3 Feel ===== */
+.data-section h2 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: #00d4ff;
+  text-shadow: 0 0 1px rgba(0, 212, 255, 0.5);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+letter-spacing: 1px;
+}
+
+.account-data p {
+  margin: 5px 0;
+  color: #a0eaff;
+  font-weight: 500;
+  font-size: 0.95rem; /* smaller text for cleaner look */
+  font-family: 'Roboto Mono', monospace; 
+  /* letter-spacing: 1px; */
+}
+.account-data h {
+  margin: 5px 0;
+  color: #a0eaff;
+  font-weight: 500;
+  font-size: 0.95rem; /* smaller text for cleaner look */
+  font-family: 'Roboto Mono', monospace; 
+  /* letter-spacing: 1px; */
+
+}
+
+.account-data strong {
+  color: #00d4ff;
+  font-family: 'Roboto Mono', monospace;
+
+}
+
+/* ===== History Section ===== */
+
+
+.history-full {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  max-height: 220px; /* 👈 लगभग 6 records की ऊँचाई */
+  overflow-y: auto;  /* 👈 scrollbar after limit */
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.history-full h2 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: #00d4ff;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px rgba(0, 212, 255, 0.4);
+}
+
+.history-full ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.history-full li {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+  color: #a0eaff;
+  font-family: monospace;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.history-full li:last-child {
+  border-bottom: none;
+}
+
+/* Scrollbar Styling */
+.history-full::-webkit-scrollbar {
+  width: 8px;
+}
+
+.history-full::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.history-full::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00d4ff, #0072ff);
+  border-radius: 4px;
+}
+
+/* ===== Status Message ===== */
+.status {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+  color: #00d4ff;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 1024px) {
+  .main-grid {
+    flex-direction: column;
+  }
+
+  .glass-card {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .stake-actions .button-row {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .account-data h {
+    margin: 5px 0;
+    color: #a0eaff;
+    font-weight: 500;
+    font-size: 9px; /* smaller text for cleaner look */
+    font-family: 'Roboto Mono', monospace; 
+    /* letter-spacing: 1px; */
+  
+  }
+
+  .wallet-info p {
+    margin: 9px 0;
+    color: #0aaa0d;
+    font-size: 9px;
+    letter-spacing: 1px;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .input {
+    font-size: 0.9rem;
+  }
+
+  .account-data p, .history-full li {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.6);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+  animation: fadeInOut 3s ease forwards;
+  z-index: 9999;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+
+
+
+/* spinner */
+.btn.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.btn.loading::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+
+/* ===== Big Screen Responsive ===== */
+@media screen and (min-width: 1400px) {
+  .app-container {
+    max-width: 1400px; /* allow more space on big screens */
+    padding: 30px;
+  }
+
+  .title {
+    font-size: 2.8rem; /* slightly bigger titles */
+  }
+
+  .main-grid {
+    gap: 30px; /* more space between cards */
+  }
+
+  .glass-card {
+    padding: 25px;
+  }
+
+  .btn, .connect-btn, .gradient-btn {
+    font-size: 18px;
+    padding: 12px 24px;
+    min-width: 140px;
+  }
+
+  .account-data p, .history-full li {
+    font-size: 1rem; /* slightly bigger text */
+  }
+
+  .history-full {
+    max-height: 300px; /* allow more history visible */
+    padding: 25px;
+  }
+}
+
+/* Extra for ultra-wide screens */
+@media screen and (min-width: 1500px) {
+  .app-container {
+    max-width: 1600px;
+  }
+
+  .main-grid {
+    gap: 40px;
+  }
+
+  .glass-card {
+    padding: 30px;
+  }
+
+  .btn, .connect-btn, .gradient-btn {
+    font-size: 20px;
+    padding: 14px 28px;
+    min-width: 160px;
+  }
+
+  .account-data p, .history-full li {
+    font-size: 1.1rem;
+  }
+
+  .history-full {
+    max-height: 350px;
+  }
+}
+
+/* ===== Large to 5K Screens Responsive ===== */
+
+/* 1400px+ Large Screens */
+@media screen and (min-width: 1400px) {
+  .app-container { max-width: 1400px; padding: 30px; }
+  .title { font-size: 2.8rem; }
+  .main-grid { gap: 30px; }
+  .glass-card { padding: 25px; }
+  .btn, .connect-btn, .gradient-btn { font-size: 18px; padding: 12px 24px; min-width: 140px; }
+  .account-data p, .history-full li { font-size: 1rem; }
+  .history-full { max-height: 300px; padding: 25px; }
+}
+
+/* 1600px+ Extra Large Screens */
+@media screen and (min-width: 1600px) {
+  .app-container { max-width: 1600px; padding: 35px; }
+  .main-grid { gap: 35px; }
+  .glass-card { padding: 28px; }
+  .btn, .connect-btn, .gradient-btn { font-size: 19px; padding: 14px 26px; min-width: 150px; }
+  .account-data p, .history-full li { font-size: 1.05rem; }
+  .history-full { max-height: 320px; padding: 28px; }
+}
+
+/* 1800px+ Ultra-Wide Screens */
+@media screen and (min-width: 1800px) {
+  .app-container { max-width: 1800px; padding: 40px; }
+  .main-grid { gap: 40px; }
+  .glass-card { padding: 30px; }
+  .btn, .connect-btn, .gradient-btn { font-size: 20px; padding: 15px 28px; min-width: 160px; }
+  .account-data p, .history-full li { font-size: 1.1rem; }
+  .history-full { max-height: 350px; padding: 30px; }
+}
+
+/* 2100px+ Super-Wide Screens */
+@media screen and (min-width: 2100px) {
+  .app-container { max-width: 2100px; padding: 50px; }
+  .main-grid { gap: 50px; }
+  .glass-card { padding: 35px; }
+  .btn, .connect-btn, .gradient-btn { font-size: 22px; padding: 16px 30px; min-width: 180px; }
+  .account-data p, .history-full li { font-size: 1.2rem; }
+  .history-full { max-height: 400px; padding: 35px; }
+}
+
+/* 2560px+ 2K Ultra-Wide Screens */
+@media screen and (min-width: 2560px) {
+  .app-container { max-width: 2560px; padding: 60px; }
+  .main-grid { gap: 60px; }
+  .glass-card { padding: 40px; }
+  .btn, .connect-btn, .gradient-btn { font-size: 24px; padding: 18px 32px; min-width: 200px; }
+  .account-data p, .history-full li { font-size: 1.3rem; }
+  .history-full { max-height: 450px; padding: 40px; }
+}
+
+/* 5120px 5K Screens */
+@media screen and (min-width: 5120px) {
+  .app-container { max-width: 5120px; padding: 80px; }
+  .main-grid { gap: 80px; }
+  .glass-card { padding: 50px; }
+  .btn, .connect-btn, .gradient-btn { font-size: 28px; padding: 20px 40px; min-width: 240px; }
+  .account-data p, .history-full li { font-size: 1.5rem; }
+  .history-full { max-height: 600px; padding: 50px; }
+}
+
+.star {
+  position: absolute;
+  top: -10px;
+  width: 2px;
+  height: 2px;
+  background: linear-gradient(white, #00d4ff);
+  opacity: 0.8;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #00d4ff, 0 0 12px #00d4ff;
+  animation: fall linear infinite;
+}
+
+/* Randomize left, speed, and delay */
+.star:nth-child(1) { left: 5%; animation-duration: 5s; animation-delay: 0s; }
+.star:nth-child(2) { left: 15%; animation-duration: 6s; animation-delay: 1s; }
+.star:nth-child(3) { left: 25%; animation-duration: 4s; animation-delay: 0.5s; }
+.star:nth-child(4) { left: 35%; animation-duration: 7s; animation-delay: 2s; }
+.star:nth-child(5) { left: 50%; animation-duration: 5s; animation-delay: 0.2s; }
+.star:nth-child(6) { left: 65%; animation-duration: 6.5s; animation-delay: 1.2s; }
+.star:nth-child(7) { left: 80%; animation-duration: 4.5s; animation-delay: 0.8s; }
+.star:nth-child(8) { left: 90%; animation-duration: 5.5s; animation-delay: 1.5s; }
+@keyframes fall {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh) translateX(30px); /* diagonal drift */
+    opacity: 0;
+  }
+}
+.star:nth-child(2) { animation-name: fall2; }
+.star:nth-child(3) { animation-name: fall3; }
+
+@keyframes fall2 { 0%{transform:translateY(0) translateX(0);} 100%{transform:translateY(100vh) translateX(-20px);} }
+@keyframes fall3 { 0%{transform:translateY(0) translateX(0);} 100%{transform:translateY(100vh) translateX(50px);} }
+
+
+
+.stars-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Common star style */
+.star {
+  position: absolute;
+  top: -10px;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fall linear infinite;
+}
+
+/* Blue / White stars */
+.blue-star {
+  background: linear-gradient(white, #00d4ff);
+  box-shadow: 0 0 6px #00d4ff, 0 0 12px #00d4ff;
+}
+
+/* Yellow stars */
+.yellow-star {
+  background: linear-gradient(#fff500, #ffd700);
+  box-shadow: 0 0 6px #ffd700, 0 0 12px #fff500;
+}
+
+/* Randomize position, speed and delay using nth-child */
+.star:nth-child(1) { left: 5%; animation-duration: 5s; animation-delay: 0s; }
+.star:nth-child(2) { left: 15%; animation-duration: 6s; animation-delay: 1s; }
+.star:nth-child(3) { left: 25%; animation-duration: 4s; animation-delay: 0.5s; }
+.star:nth-child(4) { left: 40%; animation-duration: 7s; animation-delay: 2s; }
+.star:nth-child(5) { left: 55%; animation-duration: 5.5s; animation-delay: 0.2s; }
+.star:nth-child(6) { left: 65%; animation-duration: 6.2s; animation-delay: 1.3s; }
+.star:nth-child(7) { left: 75%; animation-duration: 4.8s; animation-delay: 0.7s; }
+.star:nth-child(8) { left: 85%; animation-duration: 5.7s; animation-delay: 1.5s; }
+.star:nth-child(9) { left: 30%; animation-duration: 6.5s; animation-delay: 0.9s; }
+.star:nth-child(10){ left: 90%; animation-duration: 5.2s; animation-delay: 1.1s; }
+
+/* Falling animation with diagonal drift */
+@keyframes fall {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh) translateX(30px);
+    opacity: 0;
+  }
+}
+
+
+
+
+/* Copyright footer style */
+.copyright-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 20px;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  letter-spacing: 0.8px;
+  pointer-events: none; /* non-interactive */
+}
