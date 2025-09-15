@@ -18,18 +18,31 @@ export default function App() {
   const [history, setHistory] = useState([]);
   const [loadingAction, setLoadingAction] = useState(null);
 
-  // ✅ New Toast state
   const [toastMessage, setToastMessage] = useState("");
-
   const connection = new Connection(CLUSTER, "confirmed");
 
-  // ✅ Auto-hide toast after 3 sec
   useEffect(() => {
     if (toastMessage) {
       const timer = setTimeout(() => setToastMessage(""), 3000);
       return () => clearTimeout(timer);
     }
   }, [toastMessage]);
+
+  // ✅ Fetch last 20 transactions from Solana explorer
+  const fetchHistory = async (pubkey) => {
+    try {
+      const sigs = await connection.getSignaturesForAddress(pubkey, { limit: 20 });
+      const parsed = sigs.map((s) => ({
+        type: "On-chain Tx",
+        amount: "",
+        time: new Date(s.blockTime * 1000).toLocaleString(),
+        sig: s.signature,
+      }));
+      setHistory(parsed);
+    } catch (err) {
+      console.error("History fetch error:", err);
+    }
+  };
 
   const connectWallet = async () => {
     try {
@@ -56,6 +69,9 @@ export default function App() {
       );
       setStakeAccount(stakePda);
 
+      // ✅ Fetch last 20 history when connected
+      await fetchHistory(pubkey);
+
       setToastMessage("Wallet connected ✅");
     } catch (err) {
       setToastMessage("Connect error ❌");
@@ -67,7 +83,7 @@ export default function App() {
   const initialize = async () => {
     try {
       setLoadingAction("initialize");
-      const tx = await program.methods
+      await program.methods
         .initialize()
         .accounts({
           stakeAccount,
@@ -76,7 +92,7 @@ export default function App() {
         })
         .rpc();
       setToastMessage("Account Setup ✅");
-    } catch (err) {
+    } catch {
       setToastMessage("Account setup error ❌");
     } finally {
       setLoadingAction(null);
@@ -87,7 +103,7 @@ export default function App() {
     try {
       setLoadingAction("stake");
       const lamports = new anchor.BN(parseFloat(amount) * 1e9);
-      const tx = await program.methods
+      await program.methods
         .stake(lamports)
         .accounts({
           stakeAccount,
@@ -97,7 +113,7 @@ export default function App() {
       setToastMessage("Staked ✅");
       addHistory("Stake", amount);
       await fetchData();
-    } catch (err) {
+    } catch {
       setToastMessage("Stake error ❌");
     } finally {
       setLoadingAction(null);
@@ -108,7 +124,7 @@ export default function App() {
     try {
       setLoadingAction("unstake");
       const lamports = new anchor.BN(parseFloat(amount) * 1e9);
-      const tx = await program.methods
+      await program.methods
         .unstake(lamports)
         .accounts({
           stakeAccount,
@@ -118,7 +134,7 @@ export default function App() {
       setToastMessage("Unstaked ✅");
       addHistory("Unstake", amount);
       await fetchData();
-    } catch (err) {
+    } catch {
       setToastMessage("Unstake error ❌");
     } finally {
       setLoadingAction(null);
@@ -128,7 +144,7 @@ export default function App() {
   const claimReward = async () => {
     try {
       setLoadingAction("claim");
-      const tx = await program.methods
+      await program.methods
         .claimReward()
         .accounts({
           stakeAccount,
@@ -138,7 +154,7 @@ export default function App() {
       setToastMessage("Reward Claimed ✅");
       addHistory("Claim Reward");
       await fetchData();
-    } catch (err) {
+    } catch {
       setToastMessage("Claim error ❌");
     } finally {
       setLoadingAction(null);
@@ -161,7 +177,7 @@ export default function App() {
       };
       setAccountData(readable);
       setToastMessage("Data Fetched ✅");
-    } catch (err) {
+    } catch {
       setToastMessage("Fetch error ❌");
     } finally {
       setLoadingAction(null);
@@ -174,54 +190,37 @@ export default function App() {
       amount: amt ? amt + " SOL" : "",
       time: new Date().toLocaleString(),
     };
-    setHistory((prev) => [entry, ...prev]);
+    setHistory((prev) => {
+      const updated = [entry, ...prev];
+      return updated.slice(0, 20); // ✅ always max 20
+    });
   };
 
   return (
     <div className="app-container">
-
-
-
-{/* stars */}
-<div className="stars-background">
-  <div className="star"></div>
-  <div className="star"></div>
-  <div className="star"></div>
-  <div className="star"></div>
-  <div className="star"></div>
-  <div className="star"></div>
-  <div className="star"></div>
-  <div className="star"></div>
-  <div className="star"></div>
-  <div className="star"></div>
-  <div className="star"></div>
-</div>
-<div class="stars-background">
- 
-  <div class="star blue-star"></div>
-  <div class="star blue-star"></div>
-  <div class="star blue-star"></div>
-  <div class="star blue-star"></div>
-  <div class="star blue-star"></div>
-  
-  <div class="star yellow-star"></div>
-  <div class="star yellow-star"></div>
-  <div class="star yellow-star"></div>
-  <div class="star yellow-star"></div>
-  <div class="star yellow-star"></div>
-</div>
-{/* stars */}
-
-
+      {/* stars */}
+      <div className="stars-background">
+        <div className="star"></div><div className="star"></div><div className="star"></div>
+        <div className="star"></div><div className="star"></div><div className="star"></div>
+        <div className="star"></div><div className="star"></div><div className="star"></div>
+        <div className="star"></div><div className="star"></div>
+      </div>
+      <div className="stars-background">
+        <div className="star blue-star"></div><div className="star blue-star"></div>
+        <div className="star blue-star"></div><div className="star blue-star"></div>
+        <div className="star blue-star"></div>
+        <div className="star yellow-star"></div><div className="star yellow-star"></div>
+        <div className="star yellow-star"></div><div className="star yellow-star"></div>
+        <div className="star yellow-star"></div>
+      </div>
+      {/* stars */}
 
       <h1 className="title">⚡ Solana Stake Hub</h1>
-
-      {/* ✅ Toast Popup */}
       {toastMessage && <div className="toast">{toastMessage}</div>}
 
       {/* TOP GRID */}
       <div className="main-grid">
-        {/* LEFT SIDE - Stake Section */}
+        {/* LEFT SIDE */}
         <div className="glass-card left-panel">
           {!walletPubkey ? (
             <div className="wallet-connect-container">
@@ -256,7 +255,7 @@ export default function App() {
               placeholder="Amount in SOL"
               className="input"
             />
-            {/* Top row: Stake & Unstake */}
+
             <div className="button-row button-row-top">
               <button
                 className={`btn dark-btn ${loadingAction === "stake" ? "loading" : ""}`}
@@ -274,7 +273,6 @@ export default function App() {
               </button>
             </div>
 
-            {/* Bottom row: Claim & Fetch */}
             <div className="button-row button-row-bottom">
               <button
                 className={`btn gradient-btn ${loadingAction === "claim" ? "loading" : ""}`}
@@ -294,13 +292,13 @@ export default function App() {
           </div>
         </div>
 
-        {/* RIGHT SIDE - Account Data */}
+        {/* RIGHT SIDE */}
         <div className="glass-card right-panel">
           <div className="data-section">
             <h2>Stake Account Data</h2>
             {accountData ? (
               <div className="account-data">
-                <h><strong>Owner:</strong> {accountData.Owner}</h>
+                <p><strong>Owner:</strong> {accountData.Owner}</p>
                 <p><strong>Staked Amount (SOL):</strong> {accountData["Staked Amount (SOL)"]}</p>
                 <p><strong>Claimed Reward (SOL):</strong> {accountData["Claimed Reward (SOL)"]}</p>
                 <p><strong>Unclaimed Reward (SOL):</strong> {accountData["Unclaimed Reward (SOL)"]}</p>
@@ -316,23 +314,31 @@ export default function App() {
         </div>
       </div>
 
-      {/* BOTTOM - Full width History */}
+      {/* HISTORY */}
       <div className="history-full">
         <h2>History</h2>
         <ul>
           {history.map((h, i) => (
             <li key={i}>
               {h.type} {h.amount} at {h.time}
+              {h.sig && (
+                <a
+                  href={`https://explorer.solana.com/tx/${h.sig}?cluster=devnet`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  🔗
+                </a>
+              )}
             </li>
           ))}
         </ul>
       </div>
 
       <p className="status">{status}</p>
-      <div class="copyright-footer">
-      Web3 Visionary - Jetharam Gehlot. © 2025 All rights reserved.
-</div>
-
+      <div className="copyright-footer">
+        Web3 Visionary - Jetharam Gehlot. © 2025 All rights reserved.
+      </div>
     </div>
   );
 }
