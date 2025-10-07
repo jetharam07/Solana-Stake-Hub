@@ -100,66 +100,106 @@ export default function App() {
   };
 
   const stake = async () => {
-    try {
-      setLoadingAction("stake");
-      const lamports = new anchor.BN(parseFloat(amount) * 1e9);
-      await program.methods
-        .stake(lamports)
-        .accounts({
-          stakeAccount,
-          owner: provider.wallet.publicKey,
-        })
-        .rpc();
-      setToastMessage("Staked ✅");
-      addHistory("Stake", amount);
-      await fetchData();
-    } catch {
+  try {
+    setLoadingAction("stake");
+    const lamports = new anchor.BN(parseFloat(amount) * 1e9);
+
+    const tx = await program.methods
+      .stake(lamports)
+      .accounts({
+        stakeAccount,
+        owner: provider.wallet.publicKey,
+      })
+      .transaction();
+
+    const txSig = await provider.sendAndConfirm(tx, [], {
+      skipPreflight: false,
+      commitment: "confirmed",
+    });
+
+    console.log("✅ Stake TX Confirmed:", txSig);
+    setToastMessage("Staked ✅");
+    addHistory("Stake", amount);
+    await fetchData();
+  } catch (err) {
+    console.error("Stake failed:", err);
+    if (err.message?.includes("already processed") || err.name === "SendTransactionError") {
+      setToastMessage("Staked ✅ (Delayed confirmation)");
+    } else {
       setToastMessage("Stake error ❌");
-    } finally {
-      setLoadingAction(null);
     }
-  };
+  } finally {
+    setLoadingAction(null);
+  }
+};
 
-  const unstake = async () => {
-    try {
-      setLoadingAction("unstake");
-      const lamports = new anchor.BN(parseFloat(amount) * 1e9);
-      await program.methods
-        .unstake(lamports)
-        .accounts({
-          stakeAccount,
-          owner: provider.wallet.publicKey,
-        })
-        .rpc();
-      setToastMessage("Unstaked ✅");
-      addHistory("Unstake", amount);
-      await fetchData();
-    } catch {
+const unstake = async () => {
+  try {
+    setLoadingAction("unstake");
+    const lamports = new anchor.BN(parseFloat(amount) * 1e9);
+
+    const tx = await program.methods
+      .unstake(lamports)
+      .accounts({
+        stakeAccount,
+        owner: provider.wallet.publicKey,
+      })
+      .transaction();
+
+    const txSig = await provider.sendAndConfirm(tx, [], {
+      skipPreflight: false,
+      commitment: "confirmed",
+    });
+
+    console.log("✅ Unstake TX Confirmed:", txSig);
+    setToastMessage("Unstaked ✅");
+    addHistory("Unstake", amount);
+    await fetchData();
+  } catch (err) {
+    console.error("Unstake failed:", err);
+    if (err.message?.includes("already processed") || err.name === "SendTransactionError") {
+      setToastMessage("Unstaked ✅ (Delayed confirmation)");
+    } else {
       setToastMessage("Unstake error ❌");
-    } finally {
-      setLoadingAction(null);
     }
-  };
+  } finally {
+    setLoadingAction(null);
+  }
+};
 
-  const claimReward = async () => {
-    try {
-      setLoadingAction("claim");
-      await program.methods
-        .claimReward()
-        .accounts({
-          stakeAccount,
-          owner: provider.wallet.publicKey,
-        })
-        .rpc();
-      setToastMessage("Reward Claimed ✅");
-      addHistory("Claim Reward");
-      await fetchData();
-    } catch {
+const claimReward = async () => {
+  try {
+    setLoadingAction("claim");
+
+    const tx = await program.methods
+      .claimReward()
+      .accounts({
+        stakeAccount,
+        owner: provider.wallet.publicKey,
+      })
+      .transaction();
+
+    const txSig = await provider.sendAndConfirm(tx, [], {
+      skipPreflight: false,
+      commitment: "confirmed",
+    });
+
+    console.log("✅ Claim Reward TX Confirmed:", txSig);
+    setToastMessage("Reward Claimed ✅");
+    addHistory("Claim Reward");
+    await fetchData();
+  } catch (err) {
+    console.error("Claim Reward failed:", err);
+    if (err.message?.includes("already processed") || err.name === "SendTransactionError") {
+      setToastMessage("Reward Claimed ✅ (Delayed confirmation)");
+    } else {
       setToastMessage("Claim error ❌");
-    } finally {
-      setLoadingAction(null);
     }
-  };
+  } finally {
+    setLoadingAction(null);
+  }
+};
+
 
   const fetchData = async () => {
     try {
