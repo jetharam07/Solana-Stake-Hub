@@ -61,9 +61,6 @@ The dashboard displays detailed account information including:
 * CSS
 
 
-## Note
-A learning-focused project built to explore staking workflows and smart contract development on Solana.
-
 
 ## 🚀 Quick Start: Solana-Stake-Hub (Vite + React)
 
